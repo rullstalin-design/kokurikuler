@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌳 GloKarbon | Glosarium Jejak Karbon Jawa Timur</title>
+    
+    <link rel="stylesheet" href="style.css"> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+    <header>
+        <div class="container header-content">
+            <h1 class="logo">GloKarbon</h1>
+            <nav class="main-nav">
+                <a href="#glosarium-karbon"><i class="fas fa-map-marked-alt"></i> Glosarium Jatim</a>
+                <a href="#aplikasi"><i class="fas fa-seedling"></i> Kalkulator</a>
+                <a href="https://chat.whatsapp.com/BUelWODaVWuHQmtcADrghW" target="_blank" class="nav-join-community"><i class="fab fa-whatsapp"></i> Join Komunitas</a>
+                <a href="#tentang-kami"><i class="fas fa-info-circle"></i> Tentang Kami</a>
+            </nav>
+            <button id="mode-toggle" class="mode-toggle" aria-label="Toggle dark mode"><i class="fas fa-moon"></i></button>
+            <button class="menu-toggle"><i class="fas fa-bars"></i></button>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero" id="hero-section">
+            <div class="container">
+                <h2>Mengukur Jejak Karbon Jawa Timur</h2>
+                <p>Temukan data indikatif jejak karbon di kota Anda di Jawa Timur dan hitung emisi pribadi Anda sekarang.</p>
+                <div class="hero-actions">
+                    <a href="#glosarium-karbon" class="btn btn-primary"><i class="fas fa-search-location"></i> Cek Kota Saya</a>
+                    <a href="#aplikasi" class="btn btn-secondary"><i class="fas fa-calculator"></i> Hitung Jejak</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="rekomendasi-berita" class="content-section" style="padding-bottom: 30px;">
+            <div class="container">
+                <h3 style="margin-bottom: 20px;"><i class="fas fa-rss"></i> Berita dan Aksi Lingkungan</h3>
+                
+                <div class="carousel-container">
+                    <div class="carousel-track" id="news-carousel">
+                        <a href="https://sawitindonesia.com/kementerian-lingkungan-hidup-akan-menindak-tegas-perusahaan-lalai-cegah-karhutla/" target="_blank" class="carousel-item">
+                            <img src="https://i.imgur.com/n1gUe0n.jpeg" alt="Karhutla">
+                            <p>KLHK akan Tindak Tegas Perusahaan Lalai Cegah Karhutla</p>
+                        </a>
+                        <a href="https://kbr.id/berita/nasional/musim-tangkap-aktivis-berlanjut-usai-pegiat-lingkungan-dera-dan-munif-ditahan" target="_blank" class="carousel-item">
+                            <img src="https://i.imgur.com/5J3E9gQ.jpeg" alt="Aktivis Lingkungan">
+                            <p>Musim Tangkap Aktivis Berlanjut Usai Pegiat Lingkungan Ditahan</p>
+                        </a>
+                        <a href="https://dki.kemenag.go.id/berita/man-4-jakarta-raih-adiwiyata-nasional-wujud-komitmen-madrasah-dalam-pendidikan-lingkungan-KUu5k" target="_blank" class="carousel-item">
+                            <img src="https://i.imgur.com/8QW6yX3.jpeg" alt="Sekolah Adiwiyata">
+                            <p>MAN 4 Jakarta Raih Adiwiyata Nasional wujud Komitmen Madrasah</p>
+                        </a>
+                        <a href="https://siaran-berita.com/kerusakan-hutan-dan-strategi-mitigasi-bencana-membangun-lingkungan-dan-masyarakat/" target="_blank" class="carousel-item">
+                            <img src="https://i.imgur.com/q12VjNf.jpeg" alt="Hutan Rusak">
+                            <p>Kerusakan Hutan dan Strategi Mitigasi Bencana Membangun Lingkungan</p>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="glosarium-karbon" class="content-section">
+            <div class="container">
+                <h3><i class="fas fa-city"></i> Glosarium Karbon Wilayah JATIM</h3>
+                <p class="section-description">Cari kabupaten/kota di **Jawa Timur** untuk melihat jejak karbon regional indikatif (Ton CO2e/kapita) dan rekomendasi tindakan.</p>
+                
+                <div class="search-box">
+                    <input type="text" id="city-search-input" list="city-list" placeholder="Cari Kota/Kabupaten di Jatim..." onkeyup="searchCity()">
+                    <datalist id="city-list"></datalist>
+                    <button onclick="searchCity()"><i class="fas fa-search"></i> Cari</button>
+                </div>
+
+                <div id="city-results" class="city-results-container">
+                    <p class="placeholder-text"><i class="fas fa-hand-point-up"></i> Ketik nama wilayah untuk memulai pencarian.</p>
+                </div>
+            </div>
+        </section>
+
+        <hr>
+
+        <section id="aplikasi" class="content-section secondary-bg">
+            <div class="container">
+                <h3><i class="fas fa-seedling"></i> Kalkulator Jejak Karbon Pribadi</h3>
+                <p class="section-description">Hitung emisi bulanan Anda berdasarkan konsumsi utama. Emisi diukur dalam Kilogram CO2e.</p>
+                
+                <div class="grid-2 calculator-layout">
+                    <div class="card card-dark calculator-card">
+                        <h4>Masukkan Data Konsumsi Bulanan (Kg CO2e)</h4>
+                        <form id="carbon-calculator">
+                            <div class="form-group">
+                                <label for="listrik"><i class="fas fa-bolt"></i> Konsumsi Listrik (kWh)</label>
+                                <input type="number" id="listrik" value="100" min="0" required>
+                                <small>Koefisien Emisi: x 0.6 Kg CO2e</small>
+                            </div>
+                            <div class="form-group">
+                                <label for="transportasi"><i class="fas fa-gas-pump"></i> Jarak Tempuh Transportasi Pribadi (Km)</label>
+                                <input type="number" id="transportasi" value="500" min="0" required>
+                                <small>Koefisien Emisi: x 0.2 Kg CO2e</small>
+                            </div>
+                            <div class="form-group">
+                                <label for="daging"><i class="fas fa-drumstick-bite"></i> Frekuensi Konsumsi Daging Merah (Kali/Bulan)</label>
+                                <input type="number" id="daging" value="10" min="0" required>
+                                <small>Koefisien Emisi: x 50 Kg CO2e/kali</small>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-full-width"><i class="fas fa-chart-bar"></i> Hitung Jejak Saya</button>
+                        </form>
+                    </div>
+
+                    <div class="card card-dark result-visualization-card">
+                        <h4><i class="fas fa-chart-pie"></i> Visualisasi Emisi & Rekomendasi</h4>
+                        
+                        <div class="chart-container">
+                            <canvas id="carbonChart" aria-label="Diagram Jejak Karbon Pribadi"></canvas> 
+                        </div>
+                        
+                        <div class="result-status-block" style="display: none;">
+                            <p id="total-carbon-display" class="total-display"></p>
+                            <p id="pohon-display" class="pohon-display"></p>
+                            <p id="status-display" class="status-indicator-text"></p>
+                            <div id="action-recommendation" class="city-action-block">
+                                </div>
+                        </div>
+                        <div id="result-output" class="result-output">
+                            <p class="initial-prompt">Tekan "Hitung Jejak Saya" untuk melihat total emisi dan saran aksi nyata.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <hr>
+
+        <section id="tentang-kami" class="content-section">
+            <div class="container">
+                <h3><i class="fas fa-users"></i> Tentang Kami</h3>
+                
+                <div class="card card-dark" style="margin-bottom: 30px;">
+                    <h4>Pesan dan Kesan Kegiatan Kokulikuler</h4>
+                    <blockquote class="pesan-kesan">
+                        <i class="fas fa-quote-left"></i> Kegiatan kokulikuler ini sangat seru dan bermanfaat. Kami mendapatkan banyak pengalaman baru, khususnya dalam belajar membuat website, sehingga kemampuan dan kompetensi keahlian kami semakin bertambah. Semoga kegiatan seperti ini terus dilaksanakan agar semakin banyak siswa yang termotivasi untuk belajar dan berkembang dengan penuh semangat. Terima kasih atas bimbingan dan dukungan yang diberikan. <i class="fas fa-quote-right"></i>
+                    </blockquote>
+                </div>
+
+                <div class="card">
+                    <h4><i class="fas fa-info-circle"></i> Misi GloKarbon</h4>
+                    <p>GloKarbon adalah inisiatif edukasi yang berfokus pada wilayah Jawa Timur, bertujuan untuk meningkatkan kesadaran publik mengenai jejak karbon (Carbon Footprint) dan dampaknya terhadap lingkungan regional.</p>
+                    <p>Kami percaya bahwa **AKAR BUMI** (Aksi Kolaboratif Ramah Bumi) dimulai dari pemahaman data dan tindakan individu.</p>
+                    <p><strong>Disclaimer:</strong> Angka CO2e yang ditampilkan adalah estimasi dan tidak mewakili data resmi pemerintah. Selalu rujuk pada sumber data resmi untuk kebijakan iklim.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 GloKarbon - Inisiatif Sadar Iklim Jatim.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
