@@ -3,9 +3,29 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let chartInstance = null;
 
-    // --- 0. DATA KABUPATEN/KOTA JAWA TIMUR (Diurutkan Abjad) ---
+    // --- 0. DATA KABUPATEN/KOTA JAWA TIMUR (Lengkap 38 Daerah) ---
+    // Jejak Karbon (CO2) Indikatif dalam Ton CO2e/kapita
+    // Status: Rendah (<1.5), Sedang (1.5 - 2.8), Tinggi (>2.8)
     const cityData = {
-        "balikpapan": { "co2": 2.9, "populasi": 700000, "status": "Sedang", "warna": "yellow", "action": "Kontrol emisi industri minyak dan gas. Konservasi hutan kota dan Teluk Balikpapan." },
+        // KABUPATEN BARU DITAMBAHKAN
+        "bangkalan": { "co2": 1.2, "populasi": 1000000, "status": "Rendah", "warna": "green", "action": "Fokus pada pengelolaan sampah pasar dan pelabuhan, serta lindungi mangrove pesisir." },
+        "bojonegoro": { "co2": 1.9, "populasi": 1300000, "status": "Sedang", "warna": "yellow", "action": "Dorong pemanfaatan gas suar (flaring gas) di sektor minyak dan gas. Konservasi hutan jati." },
+        "bondowoso": { "co2": 1.0, "populasi": 800000, "status": "Rendah", "warna": "green", "action": "Promosikan kopi organik dan ekowisata Ijen yang minim emisi. Konservasi air." },
+        "jombang": { "co2": 1.4, "populasi": 1400000, "status": "Rendah", "warna": "green", "action": "Optimalkan irigasi sawah dan dorong penggunaan energi biomassa dari limbah tebu." },
+        "lamongan": { "co2": 1.7, "populasi": 1200000, "status": "Sedang", "warna": "yellow", "action": "Kembangkan tambak ramah lingkungan dan terapkan teknologi penangkapan metana (CH4) dari peternakan." },
+        "lumajang": { "co2": 1.1, "populasi": 1100000, "status": "Rendah", "warna": "green", "action": "Lindungi kawasan Semeru dari deforestasi dan kembangkan pertanian berkelanjutan." },
+        "madiun kabupaten": { "co2": 1.0, "populasi": 760000, "status": "Rendah", "warna": "green", "action": "Fokus pada pelestarian sawah dan dorong penggunaan pupuk organik untuk pertanian." },
+        "magetan": { "co2": 0.9, "populasi": 670000, "status": "Rendah", "warna": "green", "action": "Lindungi kawasan Sarangan dan kembangkan program reboisasi di lereng Lawu." },
+        "nganjuk": { "co2": 1.3, "populasi": 1100000, "status": "Rendah", "warna": "green", "action": "Optimalkan irigasi dari Bendungan Semantok dan dorong efisiensi penggunaan air." },
+        "ngawi": { "co2": 1.0, "populasi": 900000, "status": "Rendah", "warna": "green", "action": "Pertahankan lahan sawah sebagai penyerap karbon dan minimalisir penggunaan pupuk kimia." },
+        "pamekasan": { "co2": 1.1, "populasi": 850000, "status": "Rendah", "warna": "green", "action": "Fokus pada konservasi lahan garam dan pengembangan energi terbarukan di sektor perikanan." },
+        "sampang": { "co2": 1.2, "populasi": 980000, "status": "Rendah", "warna": "green", "action": "Kendalikan abrasi pantai dan dorong penggunaan kompor hemat energi di rumah tangga." },
+        "situbondo": { "co2": 1.1, "populasi": 670000, "status": "Rendah", "warna": "green", "action": "Lindungi Taman Nasional Baluran dan dorong pariwisata berbasis alam yang bertanggung jawab." },
+        "sumenep": { "co2": 1.0, "populasi": 1100000, "status": "Rendah", "warna": "green", "action": "Prioritaskan energi surya untuk pulau-pulau terpencil dan kelola limbah laut secara efektif." },
+        // KOTA BARU DITAMBAHKAN
+        "kota madiun": { "co2": 1.3, "populasi": 200000, "status": "Rendah", "warna": "green", "action": "Revitalisasi ruang terbuka hijau kota dan dorong penggunaan energi surya atap rumah." },
+        
+        // DATA LAMA YANG SUDAH ADA
         "banyuwangi": { "co2": 1.4, "populasi": 1700000, "status": "Rendah", "warna": "green", "action": "Kembangkan energi terbarukan di sektor perikanan dan pariwisata. Lindungi habitat Ijen." },
         "batu": { "co2": 1.0, "populasi": 210000, "status": "Rendah", "warna": "green", "action": "Terapkan sistem tiket online untuk mengurangi kertas dan kelola sampah wisatawan secara terpusat." },
         "blitar": { "co2": 1.1, "populasi": 140000, "status": "Rendah", "warna": "green", "action": "Kembangkan pertanian organik dan program reboisasi di lereng gunung Kelud." },
@@ -14,7 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
         "jember": { "co2": 1.6, "populasi": 2500000, "status": "Sedang", "warna": "yellow", "action": "Fokus pada manajemen limbah kopi dan tembakau. Dorong penggunaan transportasi umum perkotaan." },
         "kediri": { "co2": 1.1, "populasi": 290000, "status": "Rendah", "warna": "green", "action": "Fokus pada konservasi air dan dorong konsumsi hasil pangan lokal untuk mengurangi jejak transportasi makanan." },
         "kediri kabupaten": { "co2": 0.9, "populasi": 1600000, "status": "Rendah", "warna": "green", "action": "Pertahankan lahan pertanian subur dan dorong irigasi hemat air." },
-        "madiun": { "co2": 1.3, "populasi": 200000, "status": "Rendah", "warna": "green", "action": "Revitalisasi ruang terbuka hijau kota dan dorong penggunaan energi surya atap rumah." },
+        // "madiun": (Diganti menjadi "kota madiun")
         "malang": { "co2": 1.2, "populasi": 850000, "status": "Rendah", "warna": "green", "action": "Lindungi area pertanian dan perkebunan dari ekspansi perumahan, serta tingkatkan program daur ulang." },
         "malang kabupaten": { "co2": 1.0, "populasi": 2500000, "status": "Rendah", "warna": "green", "action": "Fokus pada konservasi lahan pertanian, konservasi air, dan pengembangan ekowisata di kawasan pegunungan." },
         "mojokerto": { "co2": 1.8, "populasi": 140000, "status": "Sedang", "warna": "yellow", "action": "Perbaiki manajemen sampah kota dan dorong bersepeda sebagai moda transportasi utama." },
@@ -25,7 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
         "ponorogo": { "co2": 1.1, "populasi": 950000, "status": "Rendah", "warna": "green", "action": "Dorong penggunaan sepeda dan kendaraan non-motorized, serta konservasi waduk Ngebel." },
         "probolinggo": { "co2": 1.5, "populasi": 230000, "status": "Sedang", "warna": "yellow", "action": "Kendalikan abrasi pantai dan optimalkan pariwisata berbasis alam yang minim emisi (Bromo)." },
         "probolinggo kabupaten": { "co2": 1.3, "populasi": 1100000, "status": "Rendah", "warna": "green", "action": "Konservasi kawasan Bromo Tengger Semeru dan lindungi hutan dari kebakaran." },
-        "sidoarjo": { "co2": 2.9, "populasi": 2000000, "status": "Sedang", "warna": "yellow", "action": "Kendalikan emisi kendaraan berat dan optimalkan pengelolaan limbah pabrik. Fokus mitigasi lumpur." },
+        "sidoarjo": { "co2": 2.9, "populasi": 2000000, "status": "Tinggi", "warna": "red", "action": "Kendalikan emisi kendaraan berat dan optimalkan pengelolaan limbah pabrik. Fokus mitigasi lumpur." },
         "surabaya": { "co2": 3.5, "populasi": 2890000, "status": "Tinggi", "warna": "red", "action": "Modernisasi industri menuju energi bersih dan edukasi manajemen limbah rumah tangga." },
         "trenggalek": { "co2": 0.9, "populasi": 750000, "status": "Rendah", "warna": "green", "action": "Lindungi kawasan pesisir dan terapkan sistem pertanian terasering untuk mencegah erosi." },
         "tuban": { "co2": 3.1, "populasi": 1200000, "status": "Tinggi", "warna": "red", "action": "Terapkan filter ketat pada pabrik semen dan pastikan reklamasi lahan pasca-tambang." },
@@ -38,11 +58,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const dataList = document.getElementById('city-list');
         dataList.innerHTML = ''; 
         
-        // Mengurutkan kunci data untuk tampilan yang rapi di datalist
         const sortedKeys = Object.keys(cityData).sort();
         
         sortedKeys.forEach(key => {
             const option = document.createElement('option');
+            // Kapitalisasi setiap kata untuk tampilan
             const displayName = key.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
             option.value = displayName;
             dataList.appendChild(option);
@@ -59,8 +79,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
     window.searchCity = function() {
         const rawQuery = searchInput.value.toLowerCase().trim();
-        const query = rawQuery.replace(/\s+/g, ' '); 
-        const cityKey = Object.keys(cityData).find(key => key === query);
+        // Normalisasi spasi dan menghapus awalan 'kota ' jika ada (untuk mencari 'kota kediri' dengan 'kediri')
+        let query = rawQuery.replace(/\s+/g, ' '); 
+        if (query.startsWith('kota ')) {
+            query = query.substring(5).trim();
+        }
+
+        let cityKey = Object.keys(cityData).find(key => key === query);
+        
+        // Jika tidak ditemukan, coba cari yang memiliki awalan 'kota ' atau 'kabupaten'
+        if (!cityKey) {
+            cityKey = Object.keys(cityData).find(key => key.includes(query));
+        }
+
         resultsContainer.innerHTML = '';
         
         if (cityKey) {
@@ -112,19 +143,19 @@ document.addEventListener('DOMContentLoaded', () => {
     const form = document.getElementById('carbon-calculator');
     const chartCtx = document.getElementById('carbonChart').getContext('2d');
     const totalCarbonDisplay = document.getElementById('total-carbon-display');
-    const pohonDisplay = document.getElementById('pohon-display'); // Elemen baru
+    const pohonDisplay = document.getElementById('pohon-display');
     const statusDisplay = document.getElementById('status-display');
     const statusBlock = document.querySelector('.result-status-block');
+    const initialPrompt = document.getElementById('result-output'); 
     const actionRecommendationDiv = document.getElementById('action-recommendation');
 
     // Koefisien Emisi (indikatif)
-    const COEF_LISTRIK = 0.6;    // kg CO2e per kWh 
+    const COEF_LISTRIK = 0.6;       // kg CO2e per kWh 
     const COEF_TRANSPORTASI = 0.2; // kg CO2e per km 
-    const COEF_DAGING = 50;      // kg CO2e per kali makan (estimasi tinggi)
+    const COEF_DAGING = 4.05;      // kg CO2e per porsi daging merah (estimasi)
     
-    // Konstanta untuk perhitungan pohon (REVISI 1)
-    // Asumsi: 1 pohon dewasa muda menyerap rata-rata 20 kg CO2e per tahun.
-    const CO2_ABSORPTION_PER_POHON_TAHUN = 20 * 12; // 20 kg/bulan * 12 bulan (Emisi bulanan dikali 12 bulan)
+    // Konstanta untuk perhitungan pohon 
+    const CO2_ABSORPTION_PER_POHON_TAHUN = 240; // 20 kg/bulan * 12 bulan
 
     // Fungsi untuk memberikan rekomendasi aksi nyata
     const getRecommendation = (carbonListrik, carbonTransportasi, carbonDaging) => {
@@ -134,11 +165,10 @@ document.addEventListener('DOMContentLoaded', () => {
             { name: 'Daging', value: carbonDaging, action: 'Coba kurangi konsumsi daging merah minimal 1-2 kali seminggu, ganti dengan ayam, ikan, atau protein nabati (tahu/tempe).' }
         ];
 
-        // Temukan kategori dengan emisi tertinggi
         categories.sort((a, b) => b.value - a.value);
         
         let generalAdvice = '';
-        if (categories[0].value > 100) { 
+        if (categories[0].value > 50) { 
             generalAdvice = `**Area Prioritas Anda:** ${categories[0].name}. ${categories[0].action}`;
         } else {
             generalAdvice = 'Jejak Anda sudah cukup baik. Pertahankan! Fokus pada daur ulang sampah dan menanam pohon di lingkungan sekitar.';
@@ -213,28 +243,27 @@ document.addEventListener('DOMContentLoaded', () => {
         const totalCarbonKg = carbonListrik + carbonTransportasi + carbonDaging;
         const totalCarbonTon = totalCarbonKg / 1000; 
         
-        // Perhitungan jumlah pohon (REVISI 1)
-        // Emisi tahunan (Kg) / Daya serap pohon per tahun (Kg)
+        // Perhitungan jumlah pohon (Emisi tahunan / Daya serap pohon per tahun)
         const annualEmissionKg = totalCarbonKg * 12;
         const requiredPohon = Math.ceil(annualEmissionKg / CO2_ABSORPTION_PER_POHON_TAHUN);
         
         updateChart(carbonListrik, carbonTransportasi, carbonDaging);
 
+        // Tampilkan hasil dan sembunyikan prompt awal
+        initialPrompt.style.display = 'none';
         statusBlock.style.display = 'block';
-        document.getElementById('result-output').style.display = 'none';
 
         totalCarbonDisplay.innerHTML = `<i class="fas fa-smog"></i> Total Jejak Bulanan: **${totalCarbonTon.toFixed(3)} Ton CO2e**`;
         
-        // Tampilkan jumlah pohon (REVISI 1)
         pohonDisplay.innerHTML = `<i class="fas fa-leaf"></i> Untuk menetralkan emisi tahunan, Anda perlu menanam sekitar **${requiredPohon} pohon** (estimasi).`;
         
         let statusText = "";
         let color = "";
         
-        if (totalCarbonTon > 0.45) { 
+        if (totalCarbonTon > 0.40) { 
             statusText = "Sangat Tinggi. Tindakan drastis diperlukan di semua sektor!";
             color = getComputedStyle(document.documentElement).getPropertyValue('--color-red');
-        } else if (totalCarbonTon > 0.20) { 
+        } else if (totalCarbonTon > 0.15) { 
             statusText = "Sedang. Fokus pada sektor dengan emisi terbesar (lihat diagram).";
             color = getComputedStyle(document.documentElement).getPropertyValue('--color-yellow');
         } else {
@@ -271,10 +300,18 @@ document.addEventListener('DOMContentLoaded', () => {
             localStorage.setItem('darkMode', 'disabled');
             modeToggle.innerHTML = '<i class="fas fa-moon"></i>';
         }
+        
         // Update chart colors on theme change
         if (chartInstance) {
-            chartInstance.options.plugins.legend.labels.color = getComputedStyle(document.body).getPropertyValue('--color-text');
-            chartInstance.update();
+            const listrik = parseFloat(document.getElementById('listrik').value) || 0;
+            const transportasi = parseFloat(document.getElementById('transportasi').value) || 0;
+            const daging = parseFloat(document.getElementById('daging').value) || 0;
+            
+            const carbonListrik = listrik * COEF_LISTRIK;
+            const carbonTransportasi = transportasi * COEF_TRANSPORTASI; 
+            const carbonDaging = daging * COEF_DAGING; 
+
+            updateChart(carbonListrik, carbonTransportasi, carbonDaging);
         }
     });
 
