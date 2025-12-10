@@ -174,7 +174,7 @@ body.dark-mode .mode-toggle, body.dark-mode .menu-toggle {
        berikan sebelumnya, mengarah ke gambar sawah/terasering), 
        ATAU Anda harus mengganti URL ini dengan jalur relatif jika 
        gambar 'bromoo.jpg' disimpan di folder yang sama (misalnya: url('bromoo.jpg')) */
-    background-image: url('https://id.images.search.yahoo.com/search/images;_ylt=Awrx.erfzjdpKQIA_IDLQwx.;_ylu=Y29sbwNzZzMEcG9zAzEEdnRpZAMEc2VjA3Nj?type=E210ID91215G0&p=keindahan+alam+jawa+timur&fr=mcafee&th=278&tw=474&imgurl=https%3A%2F%2F1.bp.blogspot.com%2F-dbopkjkccBQ%2FUJQ9ZAS3VrI%2FAAAAAAAABMQ%2FRgCik565dAU%2Fs1600%2FPanorama%2BGunung%2BBromo%2BJawa%2BTimur.jpg&rurl=https%3A%2F%2Fwahw33d.blogspot.com%2F2012%2F11%2Fmenikmati-panorama-di-puncak-gunung-bromo-jawa-timur.html&size=112KB&name=Menikmati+Panorama+di+Puncak+Gunung+Bromo%2C+Jawa+Timur&oid=3&h=498&w=848&turl=https%3A%2F%2Ftse1.mm.bing.net%2Fth%2Fid%2FOIP.yy9RnOf05k_nGTuyO1hiqwHaEW%3Fpid%3DApi&tt=Menikmati+Panorama+di+Puncak+Gunung+Bromo%2C+Jawa+Timur&sigr=ltl80yGpncoQ&sigit=B0TEQ9xkjC0y&sigi=Ps4YDgiFhyW6&sign=phCz64jIMuk8&sigt=phCz64jIMuk8');
+    background-image: url('https://genpi.id/wp-content/uploads/2021/09/foto-gambar-Gunung-Bromo-@takahirofootprints.jpg');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -574,4 +574,5 @@ footer {
         text-align: center;
     }
 }
+
 
