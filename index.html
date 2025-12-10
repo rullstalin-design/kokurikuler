@@ -18,10 +18,10 @@
         <div class="container header-content">
             <h1 class="logo">GloKarbon</h1>
             <nav class="main-nav">
-                <a href="#glosarium-karbon"><i class="fas fa-map-marked-alt"></i> Glosarium Jatim</a>
-                <a href="#aplikasi"><i class="fas fa-seedling"></i> Kalkulator</a>
-                <a href="https://chat.whatsapp.com/BUelWODaVWuHQmtcADrghW" target="_blank" class="nav-join-community"><i class="fab fa-whatsapp"></i> Join Komunitas</a>
-                <a href="#tentang-kami"><i class="fas fa-info-circle"></i> Tentang Kami</a>
+                <a href="#glosarium-karbon" class="nav-button"><i class="fas fa-map-marked-alt"></i> Glosarium Jatim</a>
+                <a href="#aplikasi" class="nav-button"><i class="fas fa-calculator"></i> Kalkulator</a>
+                <a href="https://chat.whatsapp.com/BUelWODaVWuHQmtcADrghW" target="_blank" class="nav-button"><i class="fab fa-whatsapp"></i> Join Komunitas</a>
+                <a href="#tentang-kami" class="nav-button"><i class="fas fa-info-circle"></i> Tentang Kami</a>
             </nav>
             <button id="mode-toggle" class="mode-toggle" aria-label="Toggle dark mode"><i class="fas fa-moon"></i></button>
             <button class="menu-toggle"><i class="fas fa-bars"></i></button>
@@ -34,8 +34,8 @@
                 <h2>Mengukur Jejak Karbon Jawa Timur</h2>
                 <p>Temukan data indikatif jejak karbon di kota Anda di Jawa Timur dan hitung emisi pribadi Anda sekarang.</p>
                 <div class="hero-actions">
-                    <a href="#glosarium-karbon" class="btn btn-primary"><i class="fas fa-search-location"></i> Cek Kota Saya</a>
-                    <a href="#aplikasi" class="btn btn-secondary"><i class="fas fa-calculator"></i> Hitung Jejak</a>
+                    <a href="#glosarium-karbon" class="cta-button"><i class="fas fa-search-location"></i> Cek Kota Saya</a>
+                    <a href="#aplikasi" class="cta-button btn-secondary-hero"><i class="fas fa-calculator"></i> Hitung Jejak</a>
                 </div>
             </div>
         </section>
@@ -46,22 +46,30 @@
                 
                 <div class="carousel-container">
                     <div class="carousel-track" id="news-carousel">
-                         <a href="https://sawitindonesia.com/kementerian-lingkungan-hidup-akan-menindak-tegas-perusahaan-lalai-cegah-karhutla/" target="_blank" class="carousel-item">
-                            <img src="images/klhk-karhutla.jpg" alt="Karhutla">
+                        <a href="https://www.msn.com/id-id/berita/other/aksi-tanam-700-pohon-dinas-lingkungan-hidup-garut-dan-warga-kompak-hijaukan-puncak-rabbany/ar-AA1RsF9G" target="_blank" class="carousel-item">
+                            <img src="images/garut.jpg" alt="Aksi Tanam Pohon Garut">
+                            <p>DLH Garut dan Warga Kompak Hijaukan Puncak Rabbany dengan 700 Pohon</p>
+                        </a>
+                        <a href="https://news.detik.com/berita/d-8252495/kasus-gelondongan-kayu-terbawa-banjir-di-garoga-anggoli-naik-penyidikan" target="_blank" class="carousel-item">
+                            <img src="images/kayu.jpg" alt="Penyelidikan Kayu Gelondongan Ilegal">
+                            <p>Kasus Gelondongan Kayu Terbawa Banjir di Garoga Anggoli Naik Penyidikan</p>
+                        </a>
+                        <a href="https://sawitindonesia.com/kementerian-lingkungan-hidup-akan-menindak-tegas-perusahaan-lalai-cegah-karhutla/" target="_blank" class="carousel-item">
+                             <img src="images/klhk-karhutla.jpg" alt="Karhutla">
                              <p>KLHK akan Tindak Tegas Perusahaan Lalai Cegah Karhutla</p>
                          </a>
                          <a href="https://kbr.id/berita/nasional/musim-tangkap-aktivis-berlanjut-usai-pegiat-lingkungan-dera-dan-munif-ditahan" target="_blank" class="carousel-item">
-                            <img src="images/aktivis-lingkungan.jpg" alt="Aktivis Lingkungan">
-                            <p>Musim Tangkap Aktivis Berlanjut Usai Pegiat Lingkungan Ditahan</p>
-                        </a>
-                        <a href="https://dki.kemenag.go.id/berita/man-4-jakarta-raih-adiwiyata-nasional-wujud-komitmen-madrasah-dalam-pendidikan-lingkungan-KUu5k" target="_blank" class="carousel-item">
-                            <img src="images/sekolah-adiwiyata.jpeg" alt="Sekolah Adiwiyata">
-                            <p>MAN 4 Jakarta Raih Adiwiyata Nasional wujud Komitmen Madrasah</p>
-                        </a>
-                        <a href="https://siaran-berita.com/kerusakan-hutan-dan-strategi-mitigasi-bencana-membangun-lingkungan-dan-masyarakat/" target="_blank" class="carousel-item">
-                            <img src="images/hutan-rusak.webp" alt="Hutan Rusak">
-                            <p>Kerusakan Hutan dan Strategi Mitigasi Bencana Membangun Lingkungan</p>
-                        </a>
+                             <img src="images/aktivis-lingkungan.jpg" alt="Aktivis Lingkungan">
+                             <p>Musim Tangkap Aktivis Berlanjut Usai Pegiat Lingkungan Ditahan</p>
+                         </a>
+                         <a href="https://dki.kemenag.go.id/berita/man-4-jakarta-raih-adiwiyata-nasional-wujud-komitmen-madrasah-dalam-pendidikan-lingkungan-KUu5k" target="_blank" class="carousel-item">
+                             <img src="images/sekolah-adiwiyata.jpeg" alt="Sekolah Adiwiyata">
+                             <p>MAN 4 Jakarta Raih Adiwiyata Nasional wujud Komitmen Madrasah</p>
+                         </a>
+                         <a href="https://siaran-berita.com/kerusakan-hutan-dan-strategi-mitigasi-bencana-membangun-lingkungan-dan-masyarakat/" target="_blank" class="carousel-item">
+                             <img src="images/hutan-rusak.webp" alt="Hutan Rusak">
+                             <p>Kerusakan Hutan dan Strategi Mitigasi Bencana Membangun Lingkungan</p>
+                         </a>
                     </div>
                 </div>
             </div>
@@ -74,7 +82,7 @@
                 <div class="search-box">
                     <input type="text" id="city-search-input" list="city-list" placeholder="Cari Kota/Kabupaten di Jatim..." onkeyup="searchCity()">
                     <datalist id="city-list"></datalist>
-                    <button onclick="searchCity()"><i class="fas fa-search"></i> Cari</button>
+                    <button onclick="searchCity()" class="cta-button"><i class="fas fa-search"></i> Cari</button>
                 </div>
 
                 <div id="city-results" class="city-results-container">
@@ -87,7 +95,7 @@
 
         <section id="aplikasi" class="content-section secondary-bg">
             <div class="container">
-                <h3><i class="fas fa-seedling"></i> Kalkulator Jejak Karbon Pribadi</h3>
+                <h3><i class="fas fa-calculator"></i> Kalkulator Jejak Karbon Pribadi</h3>
                 <p class="section-description">Hitung emisi bulanan Anda berdasarkan konsumsi utama. Emisi diukur dalam Kilogram CO2e.</p>
                 
                 <div class="grid-2 calculator-layout">
@@ -109,7 +117,7 @@
                                 <input type="number" id="daging" value="10" min="0" required>
                                 <small>Koefisien Emisi: x 4.05 Kg CO2e/porsi (Estimasi)</small>
                             </div>
-                            <button type="submit" class="btn btn-primary btn-full-width"><i class="fas fa-chart-bar"></i> Hitung Jejak Saya</button>
+                            <button type="submit" class="cta-button btn-full-width"><i class="fas fa-chart-bar"></i> Hitung Jejak Saya</button>
                         </form>
                     </div>
 
@@ -142,17 +150,22 @@
                 <h3><i class="fas fa-users"></i> Tentang Kami</h3>
                 
                 <div class="card card-dark" style="margin-bottom: 30px;">
-                    <h4>Pesan dan Kesan Kegiatan Kokulikuler</h4>
+                    <h4><i class="fas fa-comments"></i> Pesan dan Kesan Tim Pengembang</h4>
                     <blockquote class="pesan-kesan">
-                        <i class="fas fa-quote-left"></i> Kegiatan kokulikuler ini sangat seru dan bermanfaat. Kami mendapatkan banyak pengalaman baru, khususnya dalam belajar membuat website, sehingga kemampuan dan kompetensi keahlian kami semakin bertambah. Semoga kegiatan seperti ini terus dilaksanakan agar semakin banyak siswa yang termotivasi untuk belajar dan berkembang dengan penuh semangat. Terima kasih atas bimbingan dan dukungan yang diberikan. <i class="fas fa-quote-right"></i>
+                        "Kegiatan kokurikuler ini sungguh seru dan bermanfaat, di mana kami mendapatkan pengalaman berharga dalam membangun Glokarbon, website glosarium dan kalkulator jejak karbon untuk Jawa Timur. Kami merasa kompetensi keahlian kami meningkat pesat dan pada saat yang sama, kesadaran iklim kami pun semakin kuat. Kami sangat berharap **Glokarbon dapat terus dikembangkan menjadi rujukan utama bagi masyarakat Jawa Timur dalam mengukur jejak karbon dan mengambil aksi nyata, serta semoga kegiatan pembelajaran berorientasi solusi seperti ini terus dilaksanakan untuk memotivasi siswa lainnya.**"
                     </blockquote>
                 </div>
 
                 <div class="card">
-                    <h4><i class="fas fa-info-circle"></i> Misi GloKarbon</h4>
-                    <p>GloKarbon adalah inisiatif edukasi yang berfokus pada wilayah Jawa Timur, bertujuan untuk meningkatkan kesadaran publik mengenai jejak karbon (Carbon Footprint) dan dampaknya terhadap lingkungan regional.</p>
-                    <p>Kami percaya bahwa **AKAR BUMI** (Aksi Kolaboratif Ramah Bumi) dimulai dari pemahaman data dan tindakan individu.</p>
-                    <p><strong>Disclaimer:</strong> Angka CO2e yang ditampilkan adalah estimasi dan tidak mewakili data resmi pemerintah. Selalu rujuk pada sumber data resmi untuk kebijakan iklim.</p>
+                    <h4>💡 Visi Glokarbon (Singkat)</h4>
+                    <p>Mendorong Jawa Timur menuju masyarakat sadar iklim dan rendah karbon melalui akses mudah ke informasi dan alat perhitungan emisi.</p>
+
+                    <h4>✅ Misi Glokarbon (Singkat)</h4>
+                    <ul class="mission-list">
+                        <li>**Edukasi:** Menyediakan Glosarium Karbon (Glokarbon) yang ringkas dan kontekstual untuk meningkatkan literasi iklim di Jawa Timur.</li>
+                        <li>**Kalkulasi:** Mengoperasikan Kalkulator Jejak Karbon yang mudah digunakan untuk mengukur emisi individu, rumah tangga, dan UMKM lokal.</li>
+                        <li>**Inspirasi:** Menjadi media berita terpercaya yang menginspirasi aksi nyata mitigasi perubahan iklim di tingkat komunitas.</li>
+                    </ul>
                 </div>
             </div>
         </section>
