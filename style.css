@@ -1,4 +1,8 @@
-/* style.css (Revisi Background Foto) */
+/*
+ * style.css
+ * GloKarbon - Inisiatif Sadar Iklim Jatim
+ * Versi: 2.1 (Setelah Koreksi Path Gambar Background)
+*/
 
 /* --- Variabel Warna --- */
 :root {
@@ -10,11 +14,11 @@
     --color-card-bg: #ffffff;
     --color-text: #2c3e50; /* Biru Tua */
     --color-shadow: rgba(44, 62, 80, 0.1);
-
-    /* Status Warna */
+    
+    /* Status Warna (Untuk status emisi/tombol) */
     --color-red: #e74c3c;
     --color-yellow: #f1c40f;
-    --color-green: #2ecc71;
+    --color-green: #2ecc71; 
 }
 
 /* --- Dark Mode Variables --- */
@@ -60,15 +64,12 @@ h1, h2, h3, h4 {
     padding: 0 20px;
 }
 
-/* --- LIVE BACKGROUND 2D (DINONAKTIFKAN/DIHAPUS JIKA MENGGUNAKAN FOTO RAKUM.JPG) --- */
+/* Menonaktifkan Live Background */
 .live-background-element {
-    /* Menghapus elemen ini jika ingin menggunakan background foto di hero */
     display: none; 
 }
-/* Hapus juga keyframes moveAndFade jika Anda menghapus elemen di atas */
 
-
-/* --- Header & Navigasi (TIDAK BERUBAH) --- */
+/* --- Header & Navigasi --- */
 header {
     background-color: var(--color-card-bg);
     border-bottom: 1px solid var(--color-shadow);
@@ -96,16 +97,21 @@ header {
     display: inline-block;
 }
 
-.nav-join-community {
-    background-color: var(--color-accent);
+/* Gaya untuk Tombol Navigasi */
+.nav-button {
+    background-color: var(--color-green);
     color: white !important;
+    border: 1px solid var(--color-green);
     padding: 8px 15px;
+    margin: 0 5px;
     border-radius: 5px;
-    margin-left: 30px;
+    transition: background-color 0.3s;
+    text-decoration: none; 
+    font-weight: bold;
 }
-
-.nav-join-community:hover {
-    opacity: 0.9;
+.nav-button:hover {
+    background-color: var(--color-primary); 
+    color: white !important;
 }
 
 .mode-toggle, .menu-toggle {
@@ -128,16 +134,16 @@ header {
     display: none; 
 }
 
-/* --- Hero Section (REVISI PENTING DI SINI) --- */
+/* --- Hero Section (REVISI PATH GAMBAR) --- */
 .hero {
-    /* MENGGANTI GRADIENT DENGAN FOTO rakum.jpg */
+    /* PATH GAMBAR DIPERBAIKI: Menggunakan folder 'images/' */
     background: url('images/rakum.jpg') center center no-repeat;
-    background-size: cover; /* Pastikan gambar menutupi seluruh area hero */
+    background-size: cover; 
+    background-attachment: fixed; 
     position: relative;
-    padding: 80px 0;
+    padding: 100px 0; 
     text-align: center;
     color: white; 
-    /* Tambahkan Overlay Gelap agar teks mudah dibaca */
     z-index: 1; 
 }
 
@@ -149,42 +155,61 @@ header {
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(0, 0, 0, 0.45); /* Opacity 45% */
+    background-color: rgba(0, 0, 0, 0.3); /* Opacity dikurangi agar gambar terlihat */
     z-index: -1; 
 }
 
-
 .hero h2 {
     color: white;
-    font-size: 2.5em;
+    font-size: 2.8em;
     margin-bottom: 10px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Shadow untuk keterbacaan */
 }
 
 .hero p {
-    font-size: 1.2em;
-    margin-bottom: 30px;
-    opacity: 0.9;
+    color: white; 
+    font-size: 1.3em;
+    margin-bottom: 40px;
+    opacity: 1; 
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7); /* Shadow untuk keterbacaan */
 }
 
-.hero-actions .btn {
-    padding: 12px 25px;
-    border-radius: 5px;
-    font-weight: 600;
-    margin: 0 10px;
+.hero-actions .cta-button {
+    /* Gaya untuk tombol utama (Cek Kota Saya) */
+    background-color: var(--color-green); 
+    color: white;
+    padding: 15px 30px;
+    border-radius: 50px; 
+    font-weight: 700;
+    margin: 0 15px;
+    text-transform: uppercase;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+.hero-actions .cta-button:hover {
+     background-color: var(--color-primary);
 }
 
-.btn-primary {
-    background-color: white;
-    color: var(--color-primary);
-}
-
-.btn-secondary {
-    background-color: rgba(255, 255, 255, 0.2);
+.btn-secondary-hero {
+    /* Gaya untuk tombol sekunder (Hitung Jejak) */
+    background-color: transparent; 
     color: white;
     border: 2px solid white;
+    padding: 15px 30px;
+    border-radius: 50px; 
+    font-weight: 700;
+    margin: 0 15px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+.btn-secondary-hero:hover {
+    background-color: rgba(255, 255, 255, 0.1); 
 }
 
-/* --- Sisa Kode CSS TIDAK BERUBAH --- */
+
+/* --- Sisa Section --- */
 
 .content-section {
     padding: 60px 0;
@@ -206,7 +231,7 @@ body.dark-mode .secondary-bg {
     margin-bottom: 30px;
 }
 
-/* Carousel (TIDAK BERUBAH) */
+/* --- Carousel --- */
 .carousel-container {
     overflow-x: scroll;
     padding-bottom: 10px;
@@ -251,7 +276,7 @@ body.dark-mode .secondary-bg {
     line-height: 1.4;
 }
 
-/* Glosarium & Search (TIDAK BERUBAH) */
+/* --- Glosarium & Search --- */
 .search-box {
     display: flex;
     gap: 10px;
@@ -268,8 +293,9 @@ body.dark-mode .secondary-bg {
     color: var(--color-text);
 }
 
-.search-box button {
-    background-color: var(--color-primary);
+/* Gaya Tombol CTA (Cari) */
+.search-box .cta-button {
+    background-color: var(--color-green); 
     color: white;
     border: none;
     padding: 12px 20px;
@@ -279,8 +305,8 @@ body.dark-mode .secondary-bg {
     transition: background-color 0.3s;
 }
 
-.search-box button:hover {
-    background-color: var(--color-secondary);
+.search-box .cta-button:hover {
+    background-color: var(--color-primary); 
 }
 
 .placeholder-text {
@@ -295,7 +321,7 @@ body.dark-mode .placeholder-text {
     border-color: rgba(255, 255, 255, 0.1);
 }
 
-/* City Results Card (TIDAK BERUBAH) */
+/* City Results Card */
 .city-card {
     background-color: var(--color-card-bg);
     padding: 25px;
@@ -343,7 +369,7 @@ body.dark-mode .city-card h4 {
 }
 
 .red { background-color: var(--color-red); }
-.yellow { background-color: var(--color-yellow); }
+.yellow { color: var(--color-text); background-color: var(--color-yellow); }
 .green { background-color: var(--color-green); }
 
 .city-action-block {
@@ -358,7 +384,7 @@ body.dark-mode .city-action-block {
     background-color: rgba(255, 255, 255, 0.05);
 }
 
-/* Kalkulator & Chart (TIDAK BERUBAH) */
+/* --- Kalkulator & Chart --- */
 .calculator-layout {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -401,7 +427,8 @@ body.dark-mode .city-action-block {
     opacity: 0.6;
 }
 
-.btn-full-width {
+/* Gaya Tombol CTA (Hitung Jejak Saya) */
+.cta-button.btn-full-width {
     display: block;
     width: 100%;
     text-align: center;
@@ -411,7 +438,15 @@ body.dark-mode .city-action-block {
     cursor: pointer;
     font-weight: 700;
     margin-top: 10px;
+    
+    background-color: var(--color-green);
+    color: white;
+    transition: background-color 0.3s;
 }
+.cta-button.btn-full-width:hover {
+    background-color: var(--color-primary);
+}
+
 
 .result-status-block {
     padding-top: 20px;
@@ -450,7 +485,7 @@ body.dark-mode .result-status-block {
     opacity: 0.8;
 }
 
-/* About & Footer (TIDAK BERUBAH) */
+/* --- About & Footer --- */
 .pesan-kesan {
     font-style: italic;
     padding: 20px;
@@ -463,6 +498,23 @@ body.dark-mode .pesan-kesan {
     background-color: rgba(255, 255, 255, 0.05);
 }
 
+.mission-list {
+    list-style-type: none;
+    padding-left: 0;
+}
+.mission-list li {
+    margin-bottom: 10px;
+    padding-left: 20px;
+    position: relative;
+}
+.mission-list li::before {
+    content: "🌱";
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+
 footer {
     text-align: center;
     padding: 20px 0;
@@ -473,7 +525,7 @@ footer {
     opacity: 0.7;
 }
 
-/* Media Queries (TIDAK BERUBAH) */
+/* --- Media Queries --- */
 @media (max-width: 900px) {
     .calculator-layout {
         grid-template-columns: 1fr;
@@ -506,11 +558,16 @@ footer {
     body.dark-mode .main-nav a {
         border-color: rgba(255, 255, 255, 0.1);
     }
-
-    .nav-join-community {
+    
+    .nav-button {
         margin: 10px 20px;
         text-align: center;
     }
+    .nav-button:not(:last-child) { 
+        margin-bottom: 0; 
+        border-radius: 0;
+    }
+
 
     .menu-toggle {
         display: block;
@@ -538,7 +595,8 @@ footer {
         gap: 15px;
     }
 
-    .hero-actions .btn {
+    .hero-actions .cta-button,
+    .hero-actions .btn-secondary-hero {
         margin: 0;
         width: 100%;
         box-sizing: border-box;
