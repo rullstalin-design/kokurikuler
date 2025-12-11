@@ -3,12 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🌿 GloKarbon | Solusi Sadar Iklim Jawa Timur</title>
+    <title>🌿 GloKarbon | Peta Jejak Karbon Jawa Timur</title>
     
     <link rel="stylesheet" href="style.css"> 
+    <link rel="stylesheet" href="map-style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Leaflet CSS & JS untuk Peta -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <link rel="icon" type="image/x-icon" href="favicon.ico">
 </head>
 <body>
@@ -19,6 +23,7 @@
         <div class="container header-content">
             <h1 class="logo">GloKarbon</h1>
             <nav class="main-nav">
+                <a href="#peta-karbon" class="nav-button"><i class="fas fa-map"></i> Peta Karbon</a>
                 <a href="#quiz-hunter" class="nav-button"><i class="fas fa-gamepad"></i> Quiz Hunter</a>
                 <a href="#pusat-edukasi" class="nav-button"><i class="fas fa-graduation-cap"></i> Pusat Edukasi</a>
                 <a href="#glosarium-karbon" class="nav-button"><i class="fas fa-map-marked-alt"></i> Glosarium Jawa</a>
@@ -39,11 +44,11 @@
         <!-- HERO SECTION -->
         <section class="hero">
             <div class="container">
-                <h2>GloKarbon: Solusi Ukur Jejak & Aksi Iklim di Pulau Jawa</h2>
-                <p>Glosarium Karbon, Kalkulator Pribadi, dan Pusat Edukasi untuk Kabupaten/Kota di Jawa</p>
+                <h2>GloKarbon: Visualisasi Jejak Karbon di Pulau Jawa</h2>
+                <p>Peta Interaktif, Kalkulator Pribadi, dan Pusat Edukasi untuk Kabupaten/Kota di Jawa</p>
                 <div class="hero-actions">
-                    <a href="#glosarium-karbon" class="cta-button">
-                        <i class="fas fa-search-location"></i> Cek Kota Saya
+                    <a href="#peta-karbon" class="cta-button">
+                        <i class="fas fa-map"></i> Lihat Peta Karbon
                     </a>
                     <a href="#aplikasi" class="cta-button btn-secondary-hero">
                         <i class="fas fa-calculator"></i> Hitung Jejak Karbon
@@ -55,41 +60,166 @@
             </div>
         </section>
 
+        <!-- PETA KARBON SECTION (MENU BARU) -->
+        <section id="peta-karbon" class="content-section">
+            <div class="container">
+                <h3><i class="fas fa-map-marked-alt"></i> Peta Jejak Karbon Jawa</h3>
+                <p class="section-description">Visualisasi interaktif tingkat jejak karbon di seluruh kabupaten/kota Jawa</p>
+                
+                <!-- Legend Peta -->
+                <div class="map-legend">
+                    <div class="legend-title">
+                        <i class="fas fa-key"></i> Legenda Tingkat Jejak Karbon
+                    </div>
+                    <div class="legend-items">
+                        <div class="legend-item">
+                            <span class="legend-color" style="background-color: #10b981;"></span>
+                            <span class="legend-label">Rendah (< 2.0 ton)</span>
+                            <span class="legend-desc">Aksi lingkungan kuat</span>
+                        </div>
+                        <div class="legend-item">
+                            <span class="legend-color" style="background-color: #f59e0b;"></span>
+                            <span class="legend-label">Sedang (2.0 - 2.5 ton)</span>
+                            <span class="legend-desc">Perlu peningkatan</span>
+                        </div>
+                        <div class="legend-item">
+                            <span class="legend-color" style="background-color: #ef4444;"></span>
+                            <span class="legend-label">Tinggi (> 2.5 ton)</span>
+                            <span class="legend-desc">Prioritas mitigasi</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Container Peta -->
+                <div id="carbon-map" class="carbon-map-container"></div>
+
+                <!-- Info Wilayah Terpilih -->
+                <div id="map-info-panel" class="map-info-panel" style="display: none;">
+                    <div class="map-info-header">
+                        <h4><i class="fas fa-info-circle"></i> Informasi Wilayah</h4>
+                        <button class="close-info" onclick="closeMapInfo()">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                    <div class="map-info-content">
+                        <h5 id="selected-region-name">-</h5>
+                        <div class="map-info-stats">
+                            <div class="map-stat">
+                                <span class="stat-label">Tingkat Karbon</span>
+                                <span id="selected-carbon-level" class="stat-value">-</span>
+                            </div>
+                            <div class="map-stat">
+                                <span class="stat-label">Jejak Karbon</span>
+                                <span id="selected-carbon-footprint" class="stat-value">- ton/kapita/tahun</span>
+                            </div>
+                            <div class="map-stat">
+                                <span class="stat-label">Status</span>
+                                <span id="selected-carbon-status" class="stat-value">-</span>
+                            </div>
+                        </div>
+                        <div class="map-info-recommendation">
+                            <h6><i class="fas fa-lightbulb"></i> Rekomendasi Aksi</h6>
+                            <p id="selected-recommendation">-</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- BERITA SECTION -->
-        <section id="rekomendasi-berita" class="content-section">
+        <section id="rekomendasi-berita" class="content-section secondary-bg">
             <div class="container">
                 <h3><i class="fas fa-newspaper"></i> Berita & Aksi Lingkungan</h3>
                 <p class="section-description">Update terbaru seputar mitigasi perubahan iklim dan aksi nyata di Indonesia</p>
                 
                 <div class="carousel-container">
                     <div class="carousel-track" id="news-carousel">
-                        <!-- Carousel items tetap sama -->
                         <a href="https://www.msn.com/id-id/berita/other/aksi-tanam-700-pohon-dinas-lingkungan-hidup-garut-dan-warga-kompak-hijaukan-puncak-rabbany/ar-AA1RsF9G" target="_blank" class="carousel-item">
                             <img src="images/garut.jpg" alt="Aksi Tanam Pohon Garut">
                             <p>DLH Garut dan Warga Kompak Hijaukan Puncak Rabbany dengan 700 Pohon</p>
                         </a>
-                        <!-- ... sisanya tetap sama ... -->
+                        <a href="https://news.detik.com/berita/d-8252495/kasus-gelondongan-kayu-terbawa-banjir-di-garoga-anggoli-naik-penyidikan" target="_blank" class="carousel-item">
+                            <img src="images/kayu.jpg" alt="Penyelidikan Kayu Gelondongan Ilegal">
+                            <p>Kasus Gelondongan Kayu Terbawa Banjir di Garoga Anggoli Naik Penyidikan</p>
+                        </a>
+                         <a href="https://sawitindonesia.com/kementerian-lingkungan-hidup-akan-menindak-tegas-perusahaan-lalai-cegah-karhutla/" target="_blank" class="carousel-item">
+                             <img src="images/klhk-karhutla.jpg" alt="Karhutla">
+                             <p>KLHK akan Tindak Tegas Perusahaan Lalai Cegah Karhutla</p>
+                         </a>
+                         <a href="https://kbr.id/berita/nasional/musim-tangkap-aktivis-berlanjut-usai-pegiat-lingkungan-dera-dan-munif-ditahan" target="_blank" class="carousel-item">
+                             <img src="images/aktivis-lingkungan.jpg" alt="Aktivis Lingkungan">
+                             <p>Musim Tangkap Aktivis Berlanjut Usai Pegiat Lingkungan Ditahan</p>
+                         </a>
+                         <a href="https://dki.kemenag.go.id/berita/man-4-jakarta-raih-adiwiyata-nasional-wujud-komitmen-madrasah-dalam-pendidikan-lingkungan-KUu5k" target="_blank" class="carousel-item">
+                             <img src="images/sekolah-adiwiyata.jpeg" alt="Sekolah Adiwiyata">
+                             <p>MAN 4 Jakarta Raih Adiwiyata Nasional wujud Komitmen Madrasah</p>
+                         </a>
+                         <a href="https://siaran-berita.com/kerusakan-hutan-dan-strategi-mitigasi-bencana-membangun-lingkungan-dan-masyarakat/" target="_blank" class="carousel-item">
+                             <img src="images/hutan-rusak.webp" alt="Hutan Rusak">
+                             <p>Kerusakan Hutan dan Strategi Mitigasi Bencana Membangun Lingkungan</p>
+                         </a>
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- EDUKASI SECTION -->
-        <section id="pusat-edukasi" class="content-section secondary-bg">
+        <section id="pusat-edukasi" class="content-section">
             <div class="container">
                 <h3><i class="fas fa-book-open"></i> Pusat Edukasi Karbon & Iklim</h3>
                 <p class="section-description">Video edukatif untuk meningkatkan pemahaman tentang jejak karbon</p>
 
                 <div id="video-grid" class="video-grid">
-                    <!-- Video items tetap sama -->
+                    <div class="card video-item">
+                        <h4>Apa Jadinya Kalo Gak Ada Karbon Dioksida?</h4>
+                        <div class="video-responsive">
+                             <iframe src="https://www.youtube.com/embed/nZqk1uyCus0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        </div>
+                        <p style="font-size: 0.9em; opacity: 0.8;">Mengapa gas karbon dioksida sangat penting bagi bumi, namun juga berbahaya jika berlebihan.</p>
+                    </div>
+                    <div class="card video-item">
+                        <h4>Yuk Ketahui Pentingnya Perubahan Iklim!</h4>
+                        <div class="video-responsive">
+                            <iframe src="https://www.youtube.com/embed/kyqy6XiqWx4" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        </div>
+                        <p style="font-size: 0.9em; opacity: 0.8;">Pembahasan pentingnya perubahan iklim, dampaknya, dan peran manusia.</p>
+                    </div>
+                    <div class="card video-item">
+                        <h4>Mengenal Daur Karbon, Penyeimbang Ketersediaan Karbon di Bumi</h4>
+                        <div class="video-responsive">
+                            <iframe src="https://www.youtube.com/embed/sBQ-UW74zbI" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        </div>
+                        <p style="font-size: 0.9em; opacity: 0.8;">Pelajari siklus alami perputaran karbon di bumi dan fungsinya sebagai penyeimbang alam.</p>
+                    </div>
+                    <div class="card video-item">
+                        <h4>Yuk, Jaga Lingkungan Tetap Hijau! 🌿 | Tips Ramah Lingkungan untuk Anak-Anak</h4>
+                        <div class="video-responsive">
+                            <iframe src="https://www.youtube.com/embed/QyC6Lmt5kZU" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        </div>
+                        <p style="font-size: 0.9em; opacity: 0.8;">Tips praktis dan edukatif mengenai gaya hidup ramah lingkungan.</p>
+                    </div>
+                    <div class="card video-item">
+                        <h4>Jejak Karbon dan Upaya Pengurangannya</h4>
+                        <div class="video-responsive">
+                            <iframe src="https://www.youtube.com/embed/xKI-RKCp0k4" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        </div>
+                        <p style="font-size: 0.9em; opacity: 0.8;">Materi tentang dampak jejak karbon dan langkah-langkah konkret untuk menguranginya.</p>
+                    </div>
+                    <div class="card video-item">
+                        <h4>Bagaimana Pemanasan Global Terjadi?</h4>
+                        <div class="video-responsive">
+                            <iframe src="https://www.youtube.com/embed/yqtbz8ANW8w" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        </div>
+                        <p style="font-size: 0.9em; opacity: 0.8;">Penjelasan ilmiah yang mudah dipahami tentang proses terjadinya pemanasan global.</p>
+                    </div>
                 </div>
             </div>
         </section>
 
         <!-- GLOSARIUM SECTION -->
-        <section id="glosarium-karbon" class="content-section">
+        <section id="glosarium-karbon" class="content-section secondary-bg">
             <div class="container">
-                <h3><i class="fas fa-map-marked-alt"></i> Glosarium Karbon Pulau Jawa</h3>
+                <h3><i class="fas fa-search-location"></i> Glosarium Karbon Pulau Jawa</h3>
                 <p class="section-description">Cari kabupaten/kota di Pulau Jawa untuk melihat jejak karbon regional</p>
                 
                 <div class="search-box">
@@ -109,7 +239,7 @@
         </section>
 
         <!-- KALKULATOR SECTION -->
-        <section id="aplikasi" class="content-section secondary-bg">
+        <section id="aplikasi" class="content-section">
             <div class="container">
                 <h3><i class="fas fa-calculator"></i> Kalkulator Jejak Karbon Pribadi</h3>
                 <p class="section-description">Hitung emisi bulanan Anda berdasarkan konsumsi utama (Kg CO2e)</p>
@@ -159,7 +289,8 @@
                         <div class="result-status-block" style="display: none;">
                             <p id="total-carbon-display" class="total-display"></p>
                             <p id="pohon-display" class="pohon-display"></p>
-                            <p id="status-display" class="status-indicator-text"></p>
+                            <!-- INDIKATOR STATUS 3 WARNA -->
+                            <div id="carbon-status-indicator" class="carbon-status-indicator"></div>
                             <div id="action-recommendation" class="city-action-block">
                                 <p><strong><i class="fas fa-lightbulb"></i> Saran Aksi:</strong></p>
                             </div>
@@ -190,4 +321,63 @@
                     </div>
                     
                     <div id="quiz-question-screen" style="display: none;">
-                        <h4 id="question-number">So
+                        <h4 id="question-number">Soal 1 dari 5</h4>
+                        <p id="question-text" class="question-text"></p>
+                        <div id="answer-options" class="answer-options"></div>
+                        <p id="feedback-text" class="feedback-text"></p>
+                    </div>
+
+                    <div id="quiz-result-screen" style="display: none;">
+                        <h4>Perburuan Selesai!</h4>
+                        <p class="total-score-display"></p>
+                        <p id="result-message"></p>
+                        <button id="restart-quiz-btn" class="quiz-start-btn">
+                            <i class="fas fa-redo"></i> Main Lagi
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TENTANG KAMI SECTION -->
+        <section id="tentang-kami" class="content-section secondary-bg">
+            <div class="container">
+                <h3><i class="fas fa-users"></i> Tentang Kami</h3>
+                
+                <div class="card card-dark" style="margin-bottom: 30px;">
+                    <h4><i class="fas fa-comments"></i> Pesan dan Kesan Tim Pengembang</h4>
+                    <blockquote class="pesan-kesan">
+                        "Kegiatan kokurikuler ini sungguh seru dan bermanfaat, di mana kami mendapatkan pengalaman berharga dalam membangun Glokarbon, website glosarium dan kalkulator jejak karbon untuk Jawa Timur. Kami merasa kompetensi keahlian kami meningkat pesat dan pada saat yang sama, kesadaran iklim kami pun semakin kuat. Kami sangat berharap **Glokarbon dapat terus dikembangkan menjadi rujukan utama bagi masyarakat Jawa Timur dalam mengukur jejak karbon dan mengambil aksi nyata, serta semoga kegiatan pembelajaran berorientasi solusi seperti ini terus dilaksanakan untuk memotivasi siswa lainnya.**"
+                    </blockquote>
+                </div>
+
+                <div class="card">
+                    <h4>💡 Visi GloKarbon (Singkat)</h4>
+                    <p>Mendorong Jawa Timur menuju masyarakat sadar iklim dan rendah karbon melalui akses mudah ke informasi dan alat perhitungan emisi.</p>
+
+                    <h4>✅ Misi GloKarbon (Singkat)</h4>
+                    <ul class="mission-list">
+                        <li><strong>Edukasi:</strong> Menyediakan Glosarium Karbon (Glokarbon) yang ringkas dan kontekstual untuk meningkatkan literasi iklim di Jawa Timur.</li>
+                        <li><strong>Kalkulasi:</strong> Mengoperasikan Kalkulator Jejak Karbon yang mudah digunakan untuk mengukur emisi individu, rumah tangga, dan UMKM lokal.</li>
+                        <li><strong>Visualisasi:</strong> Menyajikan data jejak karbon dalam bentuk peta interaktif untuk pemahaman yang lebih baik.</li>
+                        <li><strong>Inspirasi:</strong> Menjadi media berita terpercaya yang menginspirasi aksi nyata mitigasi perubahan iklim di tingkat komunitas.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 GloKarbon - Inisiatif Sadar Iklim Jatim. Data peta bersifat indikatif untuk tujuan edukasi.</p>
+            <p class="footer-attribution">
+                <i class="fas fa-map"></i> Peta menggunakan Leaflet | 
+                <i class="fas fa-code"></i> Dibangun dengan HTML, CSS, JavaScript
+            </p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script src="map-script.js"></script>
+</body>
+</html>
