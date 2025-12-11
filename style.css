@@ -1,48 +1,49 @@
 /*
  * style.css
  * GloKarbon - Inisiatif Sadar Iklim Jatim
- * Versi: 6.1 (Penyesuaian Hero & Glosarium Jawa)
+ * Versi: 7.0 (Revisi Warna Kontras & Judul Tengah)
 */
 
-/* --- Variabel Warna (Sama) --- */
+/* --- Variabel Warna DITINGKATKAN KONTRASTNYA --- */
 :root {
-    /* Mode Terang Default */
-    --color-primary: #1e8449; /* Hijau Tua */
-    --color-secondary: #27ae60; /* Hijau Sedang */
-    --color-accent: #3498db; /* Biru */
-    --color-background: #ecf0f1; /* Abu Muda/Putih */
+    /* Mode Terang Default - Lebih Cerah dan Profesional */
+    --color-primary: #007bff; /* Biru Neon untuk Aksi */
+    --color-secondary: #28a745; /* Hijau Segar */
+    --color-accent: #ffc107; /* Kuning Cerah */
+    --color-background: #f8f9fa; /* Hampir Putih */
     --color-card-bg: #ffffff;
-    --color-text: #2c3e50; /* Biru Tua */
-    --color-shadow: rgba(44, 62, 80, 0.1);
+    --color-text: #343a40; /* Hitam Pudar */
+    --color-shadow: rgba(0, 0, 0, 0.1);
     
-    /* Status Warna (Untuk status emisi/tombol) */
-    --color-red: #e74c3c;
-    --color-yellow: #f1c40f;
-    --color-green: #2ecc71; 
+    /* Status Warna */
+    --color-red: #dc3545;
+    --color-yellow: #ffc107;
+    --color-green: #28a745; 
 
-    /* Warna Quiz Hunter */
-    --color-quiz-bg: #2c3e50; /* Biru Gelap/Anthracite */
-    --color-quiz-text: #ecf0f1;
-    --color-correct: #27ae60;
-    --color-wrong: #e74c3c;
-    --color-quiz-accent: #f1c40f; /* Kuning Cerah */
+    /* Warna Quiz Hunter (Bright) */
+    --color-quiz-bg: #007bff; 
+    --color-quiz-text: #ffffff;
+    --color-correct: #28a745;
+    --color-wrong: #dc3545;
+    --color-quiz-accent: #ffc107; 
 }
 
-/* --- Dark Mode Variables (Sama) --- */
+/* --- Dark Mode Variables - Lebih Dalam dan Elegan --- */
 body.dark-mode {
-    --color-primary: #2ecc71;
-    --color-secondary: #3498db;
-    --color-accent: #e74c3c;
-    --color-background: #1e272e;
-    --color-card-bg: #2f3640;
-    --color-text: #ecf0f1;
-    --color-shadow: rgba(0, 0, 0, 0.5);
+    --color-primary: #17a2b8; /* Cyan */
+    --color-secondary: #28a745;
+    --color-accent: #ffc107;
+    --color-background: #1c1c1c; /* Abu Gelap Dalam */
+    --color-card-bg: #2b2b2b; /* Abu Gelap Card */
+    --color-text: #e9ecef; /* Putih Pudar */
+    --color-shadow: rgba(0, 0, 0, 0.6);
     
-    --color-quiz-bg: #1f2a37;
-    --color-quiz-text: #ecf0f1;
+    /* Warna Quiz Hunter (Dark) */
+    --color-quiz-bg: #212529; /* Hampir Hitam */
+    --color-quiz-text: #ffffff;
 }
 
-/* --- Base & Typography (Sama) --- */
+/* --- Base & Typography --- */
 body {
     font-family: 'Poppins', sans-serif;
     color: var(--color-text);
@@ -74,11 +75,25 @@ h1, h2, h3, h4 {
     padding: 0 20px;
 }
 
+/* REVISI 1: Live Background Element (Dekoratif) */
 .live-background-element {
-    display: none; 
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 300px; /* Hanya di bagian atas */
+    background: linear-gradient(135deg, var(--color-primary) 0%, rgba(255, 255, 255, 0) 70%);
+    opacity: 0.1;
+    z-index: 0;
+    pointer-events: none;
+}
+body.dark-mode .live-background-element {
+    background: linear-gradient(135deg, var(--color-primary) 0%, rgba(0, 0, 0, 0) 70%);
+    opacity: 0.2;
 }
 
-/* --- Header & Navigasi (Sama) --- */
+/* --- Header & Navigasi --- */
 header {
     background-color: var(--color-card-bg);
     border-bottom: 1px solid var(--color-shadow);
@@ -86,6 +101,7 @@ header {
     position: sticky;
     top: 0;
     z-index: 100;
+    box-shadow: 0 2px 4px var(--color-shadow);
 }
 
 .header-content {
@@ -106,56 +122,56 @@ header {
     display: inline-block;
 }
 
-/* Gaya untuk Tombol Navigasi */
 .nav-button {
-    background-color: var(--color-green);
+    background-color: var(--color-secondary);
     color: white !important;
-    border: 1px solid var(--color-green);
+    border: 1px solid var(--color-secondary);
     padding: 8px 15px;
     margin: 0 5px;
     border-radius: 5px;
-    transition: background-color 0.3s;
+    transition: background-color 0.3s, transform 0.2s;
     text-decoration: none; 
     font-weight: bold;
 }
 .nav-button:hover {
     background-color: var(--color-primary); 
-    color: white !important;
+    border-color: var(--color-primary);
+    transform: translateY(-2px);
 }
 
 .mode-toggle, .menu-toggle {
-    background: none;
-    border: none;
-    color: var(--color-text);
+    background: var(--color-background);
+    border: 1px solid var(--color-shadow);
+    color: var(--color-primary);
     font-size: 1.2em;
     cursor: pointer;
     margin-left: 15px;
-    padding: 8px;
-    border-radius: 5px;
-    transition: background-color 0.3s;
+    padding: 8px 12px;
+    border-radius: 50%;
+    transition: background-color 0.3s, color 0.3s;
 }
 
 .mode-toggle:hover, .menu-toggle:hover {
-    background-color: var(--color-shadow);
+    background-color: var(--color-primary);
+    color: white;
 }
 
 .menu-toggle {
     display: none; 
 }
 
-/* --- Hero Section (REVISI Judul & Tombol) --- */
+/* --- Hero Section --- */
 .hero {
     background: url('images/rakum.jpg') center center no-repeat;
     background-size: cover; 
     background-attachment: fixed; 
     position: relative;
-    padding: 100px 0; 
+    padding: 120px 0; 
     text-align: center;
     color: white; 
     z-index: 1; 
 }
 
-/* Overlay untuk gambar statis */
 .hero::before {
     content: '';
     position: absolute;
@@ -163,44 +179,45 @@ header {
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(0, 0, 0, 0.3); 
+    background-color: rgba(0, 0, 0, 0.4); 
     z-index: -1; 
 }
 
 .hero h2 {
     color: white;
-    font-size: 2.8em;
-    margin-bottom: 10px;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); 
+    font-size: 3.2em; /* Lebih besar */
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.8); 
 }
 
 .hero p {
-    color: white; 
-    font-size: 1.3em;
+    color: #f8f9fa; /* Sedikit off-white */
+    font-size: 1.4em;
     margin-bottom: 40px;
-    opacity: 1; 
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7); 
 }
 
 .hero-actions {
-    display: flex; /* Menggunakan Flexbox untuk tombol */
+    display: flex; 
     justify-content: center;
-    gap: 15px; /* Jarak antar tombol */
+    gap: 15px; 
 }
 
 .hero-actions .cta-button {
-    background-color: var(--color-green); 
+    background-color: var(--color-primary); 
     color: white;
     padding: 15px 30px;
     border-radius: 50px; 
     font-weight: 700;
     border: none;
     cursor: pointer;
-    transition: background-color 0.3s;
-    white-space: nowrap; /* Mencegah teks tombol patah */
+    transition: background-color 0.3s, transform 0.2s;
+    white-space: nowrap; 
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
 }
 .hero-actions .cta-button:hover {
-     background-color: var(--color-primary);
+     background-color: var(--color-secondary);
+     transform: translateY(-3px);
 }
 
 .btn-secondary-hero {
@@ -211,36 +228,49 @@ header {
     border-radius: 50px; 
     font-weight: 700;
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: background-color 0.3s, border-color 0.3s;
 }
 .btn-secondary-hero:hover {
-    background-color: rgba(255, 255, 255, 0.1); 
+    background-color: rgba(255, 255, 255, 0.15); 
+    border-color: var(--color-accent);
 }
 
 
-/* --- Sisa Section Umum (Sama) --- */
+/* --- Sisa Section Umum --- */
 
 .content-section {
-    padding: 60px 0;
+    padding: 80px 0; /* Padding ditingkatkan */
     border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    position: relative; /* Penting agar z-index hero tidak menimpa */
 }
 
 .secondary-bg {
     background-color: rgba(0, 0, 0, 0.03); 
 }
 body.dark-mode .secondary-bg {
-    background-color: #242b33; 
+    background-color: #212529; /* Warna abu gelap yang kontras */
+}
+
+/* REVISI 2: Gaya Judul Utama Per Konten */
+.content-section h3 {
+    text-align: center;
+    font-size: 2.2em; /* Lebih besar */
+    margin-bottom: 10px;
+    color: var(--color-primary);
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
 .section-description {
     font-style: italic;
     color: var(--color-text);
-    opacity: 0.7;
-    margin-top: -10px;
-    margin-bottom: 30px;
+    opacity: 0.8;
+    margin-top: 5px;
+    margin-bottom: 40px;
+    text-align: center; /* Deskripsi juga dibuat center */
 }
 
-/* --- Carousel dan Video Grid (Sama) --- */
+/* --- Carousel dan Video Grid --- */
 .carousel-container {
     overflow-x: scroll;
     padding-bottom: 10px;
@@ -257,16 +287,17 @@ body.dark-mode .secondary-bg {
     display: inline-block;
     width: 280px;
     margin-right: 20px;
-    border-radius: 8px;
+    border-radius: 10px;
     overflow: hidden;
-    box-shadow: var(--color-shadow) 0px 4px 12px;
+    box-shadow: var(--color-shadow) 0px 6px 15px;
     transition: transform 0.3s;
     background-color: var(--color-card-bg);
     color: var(--color-text);
 }
 
 .carousel-item:hover {
-    transform: translateY(-5px);
+    transform: translateY(-8px);
+    box-shadow: var(--color-shadow) 0px 10px 20px;
 }
 
 .carousel-item img {
@@ -299,7 +330,7 @@ body.dark-mode .secondary-bg {
 }
 .video-responsive {
     position: relative;
-    padding-bottom: 56.25%; /* Rasio 16:9 */
+    padding-bottom: 56.25%; 
     height: 0;
     overflow: hidden;
     margin-bottom: 15px;
@@ -314,17 +345,18 @@ body.dark-mode .secondary-bg {
 }
 
 
-/* --- Gaya Quiz Hunter (Sama) --- */
+/* --- Gaya Quiz Hunter --- */
 .quiz-wayground {
     background-color: var(--color-quiz-bg);
     color: var(--color-quiz-text);
     border-bottom: 8px solid var(--color-quiz-accent); 
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+    padding: 80px 0;
 }
 
 .quiz-wayground h3, .quiz-wayground .section-description {
     color: var(--color-quiz-text);
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
 }
 
 .quiz-container {
@@ -334,6 +366,8 @@ body.dark-mode .secondary-bg {
     border-radius: 12px; 
     text-align: center;
     box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+    max-width: 700px; /* Lebar Quiz diatur */
+    margin: 0 auto;
 }
 
 .quiz-container h4 {
@@ -341,12 +375,9 @@ body.dark-mode .secondary-bg {
     font-size: 1.5em;
     margin-bottom: 15px;
 }
-.quiz-container p {
-    font-size: 1em;
-}
 
 .question-text {
-    font-size: 1.3em;
+    font-size: 1.4em;
     font-weight: 700;
     margin: 25px 0;
     line-height: 1.6;
@@ -379,25 +410,14 @@ body.dark-mode .secondary-bg {
     box-shadow: 0 2px 0 var(--color-primary);
 }
 
-.answer-btn:active {
-    transform: translateY(4px);
-    box-shadow: none;
-}
-
-.answer-btn:disabled {
-    cursor: default;
-    opacity: 0.6;
-    box-shadow: none;
-}
-
 .answer-btn.correct {
     background-color: var(--color-correct);
-    box-shadow: 0 4px 0 #1b6c3d; 
+    box-shadow: 0 4px 0 #1c7430; 
 }
 
 .answer-btn.wrong {
     background-color: var(--color-wrong);
-    box-shadow: 0 4px 0 #a93226; 
+    box-shadow: 0 4px 0 #9f2430; 
 }
 
 .feedback-text {
@@ -407,22 +427,21 @@ body.dark-mode .secondary-bg {
     font-size: 1.1em;
 }
 
-.quiz-start-btn {
-    padding: 15px 30px;
-    font-size: 1.2em;
-}
 
-/* --- Glosarium & Search (Sama) --- */
+/* --- Glosarium & Search --- */
 .search-box {
     display: flex;
     gap: 10px;
     margin-bottom: 30px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .search-box input[type="text"] {
     flex-grow: 1;
     padding: 12px 15px;
-    border: 1px solid rgba(0, 0, 0, 0.1);
+    border: 2px solid var(--color-primary);
     border-radius: 8px;
     font-size: 1em;
     background-color: var(--color-card-bg);
@@ -430,7 +449,7 @@ body.dark-mode .secondary-bg {
 }
 
 .search-box .cta-button {
-    background-color: var(--color-green); 
+    background-color: var(--color-secondary); 
     color: white;
     border: none;
     padding: 12px 20px;
@@ -444,19 +463,17 @@ body.dark-mode .secondary-bg {
     background-color: var(--color-primary); 
 }
 
-.placeholder-text {
-    text-align: center;
-    padding: 40px;
-    border: 2px dashed rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-    opacity: 0.7;
-    background-color: var(--color-card-bg);
+.city-result-card {
+    max-width: 900px;
+    margin: 30px auto;
+    border-left: 5px solid var(--color-primary);
 }
-body.dark-mode .placeholder-text {
-    border-color: rgba(255, 255, 255, 0.1);
+.city-result-card h4 {
+    font-size: 1.8em;
 }
 
-/* --- Kalkulator & Chart (Sama) --- */
+
+/* --- Kalkulator & Chart --- */
 .calculator-layout {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -466,157 +483,35 @@ body.dark-mode .placeholder-text {
 
 .card {
     background-color: var(--color-card-bg);
-    padding: 25px;
-    border-radius: 10px;
-    box-shadow: var(--color-shadow) 0px 4px 12px;
-}
-
-.form-group {
-    margin-bottom: 15px; 
-    padding: 10px;
-    border: 1px solid rgba(0, 0, 0, 0.05);
-    border-radius: 8px;
-    background-color: var(--color-background); 
-}
-body.dark-mode .form-group {
-    background-color: rgba(255, 255, 255, 0.05);
-    border-color: rgba(255, 255, 255, 0.1);
-}
-
-.form-group label {
-    display: block;
-    font-weight: 600;
-    margin-bottom: 5px;
-    font-size: 0.95em;
-    color: var(--color-primary);
-}
-
-.form-group input {
-    width: 98%;
-    padding: 8px 5px;
-    border: 1px solid rgba(0, 0, 0, 0.2);
-    border-radius: 5px;
-    font-size: 1em;
-    background-color: var(--color-card-bg); 
-    color: var(--color-text);
-}
-body.dark-mode .form-group input {
-    background-color: var(--color-card-bg); 
-}
-
-
-.form-group small {
-    display: block;
-    margin-top: 5px;
-    font-size: 0.75em; 
-    opacity: 0.8;
-}
-
-.cta-button.btn-full-width {
-    display: block;
-    width: 100%;
-    text-align: center;
-    padding: 12px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-weight: 700;
-    margin-top: 10px;
-    
-    background-color: var(--color-green);
-    color: white;
-    transition: background-color 0.3s;
-}
-.cta-button.btn-full-width:hover {
-    background-color: var(--color-primary);
-}
-
-.chart-container {
-    margin-bottom: 20px;
-}
-
-.result-status-block {
-    padding-top: 20px;
-    margin-top: 20px;
-    border-top: 1px solid rgba(0, 0, 0, 0.1);
-    text-align: center;
-}
-body.dark-mode .result-status-block {
-    border-color: rgba(255, 255, 255, 0.1);
+    padding: 30px; /* Padding ditingkatkan */
+    border-radius: 12px;
+    box-shadow: var(--color-shadow) 0px 6px 15px;
 }
 
 .total-display {
-    font-size: 1.6em;
+    font-size: 1.8em;
     font-weight: 800;
     color: var(--color-red);
 }
 
-.pohon-display {
-    font-size: 1em;
-    font-style: italic;
-    color: var(--color-secondary);
-    margin-bottom: 15px;
-}
 
-.status-indicator-text {
-    font-size: 1.1em;
-    font-weight: 700;
-    margin-bottom: 15px;
-}
-
-.city-action-block {
-    background-color: rgba(0, 0, 0, 0.05);
-    padding: 15px;
-    border-radius: 8px;
-    font-size: 0.95em;
-    line-height: 1.5;
-    color: var(--color-text);
-}
-body.dark-mode .city-action-block {
-    background-color: rgba(255, 255, 255, 0.05);
-}
-
-.initial-prompt {
-    text-align: center;
-    padding: 50px 0;
-    font-size: 1.1em;
-    opacity: 0.8;
-}
-
-/* --- About & Footer (Sama) --- */
+/* --- About & Footer --- */
 .pesan-kesan {
     font-style: italic;
-    padding: 20px;
+    padding: 25px;
     border-left: 5px solid var(--color-primary);
-    background-color: rgba(0, 0, 0, 0.03);
-    border-radius: 5px;
+    background-color: var(--color-background);
+    border-radius: 8px;
     line-height: 1.6;
 }
 body.dark-mode .pesan-kesan {
-    background-color: rgba(255, 255, 255, 0.05);
+    background-color: #3b3b3b;
 }
-
-.mission-list {
-    list-style-type: none;
-    padding-left: 0;
-}
-.mission-list li {
-    margin-bottom: 10px;
-    padding-left: 20px;
-    position: relative;
-}
-.mission-list li::before {
-    content: "🌱";
-    position: absolute;
-    left: 0;
-    top: 0;
-}
-
 
 footer {
     text-align: center;
-    padding: 20px 0;
-    border-top: 1px solid rgba(0, 0, 0, 0.05);
+    padding: 25px 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
     background-color: var(--color-card-bg);
     font-size: 0.9em;
     color: var(--color-text);
@@ -624,99 +519,12 @@ footer {
 }
 
 
-/* --- Media Queries --- */
-@media (max-width: 1024px) {
-    .hero-actions {
-        flex-wrap: wrap; /* Memungkinkan tombol bungkus pada layar menengah */
-    }
-}
-
-@media (max-width: 900px) {
-    .calculator-layout {
-        grid-template-columns: 1fr;
-    }
-    .answer-options {
-        grid-template-columns: 1fr; /* 1 kolom pada layar kecil */
-    }
-    .btn-secondary-hero {
-        width: 100% !important;
-    }
-    .quiz-container {
-        padding: 30px 20px;
-    }
-}
-
+/* --- Media Queries (Hanya penyesuaian ukuran font judul) --- */
 @media (max-width: 768px) {
-    .main-nav {
-        position: absolute;
-        top: 60px; 
-        left: 0;
-        right: 0;
-        background-color: var(--color-card-bg);
-        border-top: 1px solid var(--color-shadow);
-        box-shadow: var(--color-shadow) 0px 4px 12px;
-        flex-direction: column;
-        display: none;
-        padding: 10px 0;
+    .content-section h3 {
+        font-size: 1.8em; /* Judul tetap besar di mobile */
     }
-
-    .main-nav.active {
-        display: flex;
-    }
-
-    .main-nav a {
-        margin: 0;
-        padding: 10px 20px;
-        border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-    }
-    body.dark-mode .main-nav a {
-        border-color: rgba(255, 255, 255, 0.1);
-    }
-    
-    .nav-button {
-        margin: 10px 20px;
-        text-align: center;
-    }
-    .nav-button:not(:last-child) { 
-        margin-bottom: 0; 
-        border-radius: 0;
-    }
-
-
-    .menu-toggle {
-        display: block;
-    }
-
-    .header-content {
-        justify-content: space-between;
-    }
-    
-    .mode-toggle {
-        order: 3; 
-    }
-
-    .hero {
-        padding: 60px 0;
-    }
-
     .hero h2 {
-        font-size: 2em;
-    }
-
-    .hero-actions {
-        display: flex;
-        flex-direction: column;
-        gap: 15px;
-    }
-
-    .hero-actions .cta-button,
-    .hero-actions .btn-secondary-hero {
-        margin: 0;
-        width: 100%;
-        box-sizing: border-box;
-    }
-
-    .search-box {
-        flex-direction: column;
+        font-size: 2.5em;
     }
 }
