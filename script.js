@@ -543,3 +543,122 @@ document.addEventListener('DOMContentLoaded', () => {
     loadTheme();
     fillDatalist();
 });
+document.addEventListener('DOMContentLoaded', () => {
+    // [Kode sebelumnya tetap sama...]
+    
+    // ------------------------------------------
+    // 3. Logika Kalkulator Karbon dengan Indikator 3 Warna
+    // ------------------------------------------
+    
+    // [Kode sebelumnya...]
+    
+    const calculateCarbon = (event) => {
+        event.preventDefault();
+
+        const listrik = parseFloat(document.getElementById('listrik').value) || 0;
+        const transportasi = parseFloat(document.getElementById('transportasi').value) || 0;
+        const daging = parseFloat(document.getElementById('daging').value) || 0;
+        const air = parseFloat(document.getElementById('air').value) || 0; 
+        const sampah = parseFloat(document.getElementById('sampah').value) || 0; 
+
+        const emisiListrik = listrik * CARBON_FACTORS.listrik;
+        const emisiTransportasi = transportasi * CARBON_FACTORS.transportasi;
+        const emisiDaging = daging * CARBON_FACTORS.daging;
+        const emisiAir = air * CARBON_FACTORS.air; 
+        const emisiSampah = sampah * CARBON_FACTORS.sampah; 
+
+        const totalEmisi = emisiListrik + emisiTransportasi + emisiDaging + emisiAir + emisiSampah;
+
+        totalCarbonDisplay.innerHTML = `<i class="fas fa-smog"></i> Total Emisi Anda Bulan Ini: <strong>${totalEmisi.toFixed(2)} Kg CO2e</strong>`;
+        
+        const treesNeeded = (totalEmisi * 12 * POHON_PER_KG_TAHUN).toFixed(1);
+        pohonDisplay.textContent = `Ini setara dengan emisi ${treesNeeded} pohon dewasa per tahun.`;
+        
+        let statusText;
+        let recommendationText;
+        let statusClass;
+        let statusColor;
+
+        // INDIKATOR 3 WARNA untuk Kalkulator Pribadi
+        if (totalEmisi < 150) {
+            statusText = 'Rendah - Sangat Baik!';
+            statusClass = 'status-low';
+            statusColor = '#10b981';
+            recommendationText = 'Anda adalah warga negara yang sadar iklim. Terus pertahankan gaya hidup rendah karbon Anda!';
+        } else if (totalEmisi < 300) {
+            statusText = 'Sedang - Perlu Peningkatan';
+            statusClass = 'status-medium';
+            statusColor = '#f59e0b';
+            recommendationText = 'Emisi Anda moderat. Coba fokus pada 3R (Reduce, Reuse, Recycle) dan kurangi frekuensi makan daging merah.';
+        } else {
+            statusText = 'Tinggi - Segera Lakukan Aksi!';
+            statusClass = 'status-high';
+            statusColor = '#ef4444';
+            recommendationText = 'Emisi Anda cukup tinggi. Pertimbangkan menggunakan transportasi umum, kurangi konsumsi daging, dan kelola sampah dengan bijak.';
+        }
+
+        // Update indikator status dengan 3 warna
+        const statusIndicator = document.getElementById('carbon-status-indicator');
+        statusIndicator.className = `carbon-status-indicator ${statusClass}`;
+        statusIndicator.innerHTML = `
+            <div>Status Jejak Karbon Anda:</div>
+            <div style="font-weight: 800; color: ${statusColor}">${statusText}</div>
+        `;
+
+        actionRecommendation.innerHTML = `<p><strong><i class="fas fa-lightbulb"></i> Saran Aksi:</strong></p><p>${recommendationText}</p>`;
+        
+        resultOutput.style.display = 'none';
+        resultStatusBlock.style.display = 'block';
+
+        updateChart(emisiListrik, emisiTransportasi, emisiDaging, emisiAir, emisiSampah);
+    };
+
+    // ------------------------------------------
+    // 2. Logika Glosarium Karbon dengan Indikator 3 Warna
+    // ------------------------------------------
+
+    const displayCityResult = ([city, province, carbonFootprint, recommendation]) => {
+        let statusColor = '';
+        let statusIndicator = '';
+        let statusClass = '';
+
+        // INDIKATOR 3 WARNA untuk Glosarium
+        if (carbonFootprint < 2.0) {
+            statusColor = '#10b981';
+            statusIndicator = 'Rendah - Aksi Lingkungan yang Kuat';
+            statusClass = 'status-low';
+        } else if (carbonFootprint < 2.5) {
+            statusColor = '#f59e0b';
+            statusIndicator = 'Sedang - Perlu Peningkatan';
+            statusClass = 'status-medium';
+        } else {
+            statusColor = '#ef4444';
+            statusIndicator = 'Tinggi - Prioritas Mitigasi';
+            statusClass = 'status-high';
+        }
+
+        cityResultsDiv.innerHTML = `
+            <div class="card city-result-card">
+                <h4 style="color: var(--color-primary);">${city}, ${province}</h4>
+                <div class="grid-2" style="gap: 20px;">
+                    <div>
+                        <p><strong><i class="fas fa-smog"></i> Jejak Karbon Indikatif:</strong></p>
+                        <p class="total-display" style="color: ${statusColor};">${carbonFootprint.toFixed(1)} Ton CO2e/Kapita/Tahun</p>
+                        <div class="carbon-status-indicator ${statusClass}" style="margin: 15px 0;">
+                            <div>Status Regional:</div>
+                            <div style="font-weight: 800; color: ${statusColor}">${statusIndicator}</div>
+                        </div>
+                    </div>
+                    <div>
+                        <p><strong><i class="fas fa-lightbulb"></i> Rekomendasi Aksi Lokal:</strong></p>
+                        <div class="city-action-block">
+                            <p>${recommendation}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+    };
+
+    // [Kode lainnya tetap sama...]
+});
