@@ -1,7 +1,7 @@
 /*
  * style.css
  * GloKarbon - Inisiatif Sadar Iklim Jatim
- * Versi: 2.1 (Setelah Koreksi Path Gambar Background)
+ * Versi: 3.0 (Setelah Implementasi Video Background dan Halaman Edukasi)
 */
 
 /* --- Variabel Warna --- */
@@ -134,44 +134,70 @@ header {
     display: none; 
 }
 
-/* --- Hero Section (REVISI PATH GAMBAR) --- */
+/* --- Hero Section (VIDEO BACKGROUND) --- */
 .hero {
-    /* PATH GAMBAR DIPERBAIKI: Menggunakan folder 'images/' */
-    background: url('images/rakum.jpg') center center no-repeat;
-    background-size: cover; 
-    background-attachment: fixed; 
+    background: none; 
+    background-color: #000; 
     position: relative;
-    padding: 100px 0; 
+    padding: 0; 
     text-align: center;
     color: white; 
     z-index: 1; 
+    overflow: hidden; 
+    height: 60vh; 
+    min-height: 400px;
 }
 
-/* Overlay untuk memastikan teks putih tetap terlihat jelas */
-.hero::before {
+/* Gaya untuk elemen video */
+#hero-video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    z-index: -2; 
+    transform: translate(-50%, -50%);
+    object-fit: cover; 
+}
+
+/* Kontainer Konten (di atas video) */
+.hero-content-overlay {
+    position: relative;
+    z-index: 2; 
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; 
+    padding: 100px 0; 
+}
+
+/* Overlay Hitam (untuk keterbacaan teks) */
+.hero-content-overlay::before {
     content: '';
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(0, 0, 0, 0.3); /* Opacity dikurangi agar gambar terlihat */
+    background-color: rgba(0, 0, 0, 0.45); 
     z-index: -1; 
 }
 
-.hero h2 {
+.hero-content-overlay h2 {
     color: white;
     font-size: 2.8em;
     margin-bottom: 10px;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Shadow untuk keterbacaan */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); 
 }
 
-.hero p {
+.hero-content-overlay p {
     color: white; 
     font-size: 1.3em;
     margin-bottom: 40px;
     opacity: 1; 
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7); /* Shadow untuk keterbacaan */
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7); 
 }
 
 .hero-actions .cta-button {
@@ -485,6 +511,36 @@ body.dark-mode .result-status-block {
     opacity: 0.8;
 }
 
+/* --- Gaya Khusus Halaman Pusat Edukasi (Video Grid) --- */
+.video-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
+}
+.video-item h4 {
+    color: var(--color-primary);
+    margin-top: 0;
+    font-size: 1.2em;
+    margin-bottom: 10px;
+}
+.video-responsive {
+    position: relative;
+    padding-bottom: 56.25%; /* Rasio 16:9 */
+    height: 0;
+    overflow: hidden;
+    margin-bottom: 15px;
+}
+.video-responsive iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 8px;
+}
+
+
 /* --- About & Footer --- */
 .pesan-kesan {
     font-style: italic;
@@ -582,6 +638,11 @@ footer {
     }
 
     .hero {
+        padding: 0; /* padding diatur oleh .hero-content-overlay */
+        min-height: 350px;
+    }
+
+    .hero-content-overlay {
         padding: 60px 0;
     }
 
