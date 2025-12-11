@@ -18,6 +18,7 @@
         <div class="container header-content">
             <h1 class="logo">GloKarbon</h1>
             <nav class="main-nav">
+                <a href="#quiz-hunter" class="nav-button"><i class="fas fa-gamepad"></i> Quiz Hunter</a>
                 <a href="#pusat-edukasi" class="nav-button"><i class="fas fa-graduation-cap"></i> Pusat Edukasi</a>
                 <a href="#glosarium-karbon" class="nav-button"><i class="fas fa-map-marked-alt"></i> Glosarium Jatim</a>
                 <a href="#aplikasi" class="nav-button"><i class="fas fa-calculator"></i> Kalkulator</a>
@@ -40,6 +41,7 @@
                 </div>
             </div>
         </section>
+
         <section id="rekomendasi-berita" class="content-section" style="padding-bottom: 30px;">
             <div class="container">
                 <h3 style="margin-bottom: 20px;"><i class="fas fa-rss"></i> Berita dan Aksi Lingkungan</h3>
@@ -113,7 +115,54 @@
                         </div>
                         <p style="font-size: 0.9em; opacity: 0.8;">Tips praktis dan edukatif mengenai gaya hidup ramah lingkungan, cocok untuk anak-anak dan keluarga.</p>
                     </div>
+
+                    <div class="card video-item">
+                        <h4>Jejak Karbon dan Upaya Pengurangannya</h4>
+                        <div class="video-responsive">
+                            <iframe src="https://www.youtube.com/embed/xKI-RKCp0k4" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        </div>
+                        <p style="font-size: 0.9em; opacity: 0.8;">Materi tentang dampak jejak karbon dan langkah-langkah konkret yang bisa dilakukan untuk menguranginya.</p>
+                    </div>
+
+                    <div class="card video-item">
+                        <h4>Bagaimana Pemanasan Global Terjadi?</h4>
+                        <div class="video-responsive">
+                            <iframe src="https://www.youtube.com/embed/yqtbz8ANW8w" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        </div>
+                        <p style="font-size: 0.9em; opacity: 0.8;">Penjelasan ilmiah yang mudah dipahami tentang proses terjadinya pemanasan global.</p>
+                    </div>
                     
+                </div>
+            </div>
+        </section>
+        <hr>
+
+        <section id="quiz-hunter" class="content-section quiz-wayground">
+            <div class="container">
+                <h3><i class="fas fa-gamepad"></i> Quiz Hunter: Uji Pengetahuan Karbonmu!</h3>
+                <p class="section-description">Jawab 5 pertanyaan seputar jejak karbon dan lingkungan. Kumpulkan poin sebanyak mungkin!</p>
+
+                <div class="quiz-container card">
+                    <div id="quiz-start-screen">
+                        <h4>Selamat Datang, Hunter!</h4>
+                        <p>Tekan tombol di bawah untuk memulai perburuan pengetahuan (5 Soal).</p>
+                        <button id="start-quiz-btn" class="cta-button btn-full-width"><i class="fas fa-play"></i> Mulai Quiz</button>
+                    </div>
+                    
+                    <div id="quiz-question-screen" style="display: none;">
+                        <h4 id="question-number">Soal 1 dari 5</h4>
+                        <p id="question-text" class="question-text"></p>
+                        <div id="answer-options" class="answer-options">
+                            </div>
+                        <p id="feedback-text" class="feedback-text"></p>
+                    </div>
+
+                    <div id="quiz-result-screen" style="display: none;">
+                        <h4>Perburuan Selesai!</h4>
+                        <p class="total-score-display"></p>
+                        <p id="result-message"></p>
+                        <button id="restart-quiz-btn" class="cta-button btn-full-width btn-secondary-hero"><i class="fas fa-redo"></i> Main Lagi</button>
+                    </div>
                 </div>
             </div>
         </section>
@@ -156,6 +205,16 @@
                                 <label for="transportasi"><i class="fas fa-gas-pump"></i> Jarak Tempuh Transportasi Pribadi (Km)</label>
                                 <input type="number" id="transportasi" value="500" min="0" required>
                                 <small>Koefisien Emisi: x 0.2 Kg CO2e/Km</small>
+                            </div>
+                            <div class="form-group">
+                                <label for="air"><i class="fas fa-tint"></i> Konsumsi Air (m³/Bulan)</label>
+                                <input type="number" id="air" value="15" min="0" required>
+                                <small>Koefisien Emisi: x 0.5 Kg CO2e/m³ (Pompa & Pengolahan)</small>
+                            </div>
+                             <div class="form-group">
+                                <label for="sampah"><i class="fas fa-trash-alt"></i> Sampah Rumah Tangga (Kg/Bulan)</label>
+                                <input type="number" id="sampah" value="20" min="0" required>
+                                <small>Koefisien Emisi: x 0.4 Kg CO2e/Kg Sampah (TPA)</small>
                             </div>
                             <div class="form-group">
                                 <label for="daging"><i class="fas fa-drumstick-bite"></i> Frekuensi Konsumsi Daging Merah (Porsi/Bulan)</label>
